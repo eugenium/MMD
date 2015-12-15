@@ -13,6 +13,8 @@ from sklearn.metrics.pairwise import rbf_kernel
 
 def MMD_3_Sample_Test(X,Y,Z,sigma=-1,SelectSigma=2,computeMMDs=False):
     '''Performs the relative MMD test which returns a test statistic for whether Y is closer to X or than Z.
+    See http://arxiv.org/pdf/1511.04581.pdf
+    The bandwith heuristic is based on the median heuristic (see Smola,Gretton).
     '''
     if(sigma<0):
         #Similar heuristics
@@ -41,6 +43,7 @@ def MMD_3_Sample_Test(X,Y,Z,sigma=-1,SelectSigma=2,computeMMDs=False):
     u_zz=np.sum(Kzznd)*( 1./(r*(r-1)) )
     u_xy=np.sum(Kxy)/(m*n)
     u_xz=np.sum(Kxz)/(m*r)
+    #Compute the test statistic
     t=u_yy - 2.*u_xy - (u_zz-2.*u_xz)
     Diff_Var,Diff_Var_z2,data=MMD_Diff_Var(Kyy,Kzz,Kxy,Kxz)
 
@@ -62,6 +65,7 @@ def MMD_3_Sample_Test(X,Y,Z,sigma=-1,SelectSigma=2,computeMMDs=False):
 def MMD_Diff_Var(Kyy,Kzz,Kxy,Kxz):
     '''
     Compute the variance of the difference statistic MMDXY-MMDXZ
+    See http://arxiv.org/pdf/1511.04581.pdf Appendix for derivations
     '''
     m = Kxy.shape[0];
     n = Kyy.shape[0];
