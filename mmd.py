@@ -5,6 +5,7 @@ which is based on matlab code from Arthur Gretton
 
 
 Eugene Belilovsky
+eugene.belilovsky@inria.fr
 '''
 import numpy as np
 import scipy as sp
